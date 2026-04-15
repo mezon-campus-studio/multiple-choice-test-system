@@ -1,0 +1,16 @@
+root = true
+
+[*]
+# Sử dụng Tab làm kiểu thụt đầu dòng
+indent_style = tab
+
+# Khi dùng tab, indent_size sẽ xác định có bao nhiêu Tab được chèn vào cho mỗi cấp độ con.
+# Bạn muốn 2 tab cho mỗi cấp child, nên giá trị này là 2.
+indent_size = 2
+
+# Xác định độ rộng hiển thị của mỗi Tab trên màn hình (thường để 4 cho dễ nhìn)
+tab_width = 4
+
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
