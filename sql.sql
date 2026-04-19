@@ -2,10 +2,12 @@
 -- PostgreSQL database dump
 --
 
+\restrict waeauUvCtwgLtgPaDt9EM4dcDXeDA6gSbx2AhfcFNLOiTg2a57iUJ6vztxq1Nc1
+
 -- Dumped from database version 18.3
 -- Dumped by pg_dump version 18.3
 
--- Started on 2026-04-13 22:22:22
+-- Started on 2026-04-17 12:06:28
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -33,8 +35,8 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 224 (class 1259 OID 16443)
--- Name: Answers; Type: TABLE; Schema: public; Owner: -
+-- TOC entry 219 (class 1259 OID 16456)
+-- Name: Answers; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public."Answers" (
@@ -46,9 +48,12 @@ CREATE TABLE public."Answers" (
     "updateAt" bigint
 );
 
+
+ALTER TABLE public."Answers" OWNER TO postgres;
+
 --
--- TOC entry 226 (class 1259 OID 24592)
--- Name: Exam; Type: TABLE; Schema: public; Owner: -
+-- TOC entry 220 (class 1259 OID 16464)
+-- Name: Exam; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public."Exam" (
@@ -60,9 +65,12 @@ CREATE TABLE public."Exam" (
     "createdAt" bigint
 );
 
+
+ALTER TABLE public."Exam" OWNER TO postgres;
+
 --
--- TOC entry 223 (class 1259 OID 16434)
--- Name: Questions; Type: TABLE; Schema: public; Owner: -
+-- TOC entry 221 (class 1259 OID 16472)
+-- Name: Questions; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public."Questions" (
@@ -76,9 +84,12 @@ CREATE TABLE public."Questions" (
     subject_id bigint NOT NULL
 );
 
+
+ALTER TABLE public."Questions" OWNER TO postgres;
+
 --
--- TOC entry 221 (class 1259 OID 16401)
--- Name: Roles; Type: TABLE; Schema: public; Owner: -
+-- TOC entry 222 (class 1259 OID 16480)
+-- Name: Roles; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public."Roles" (
@@ -89,9 +100,12 @@ CREATE TABLE public."Roles" (
     "updatedAt" bigint
 );
 
+
+ALTER TABLE public."Roles" OWNER TO postgres;
+
 --
--- TOC entry 228 (class 1259 OID 24633)
--- Name: Score; Type: TABLE; Schema: public; Owner: -
+-- TOC entry 223 (class 1259 OID 16485)
+-- Name: Score; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public."Score" (
@@ -102,9 +116,12 @@ CREATE TABLE public."Score" (
     score integer
 );
 
+
+ALTER TABLE public."Score" OWNER TO postgres;
+
 --
--- TOC entry 227 (class 1259 OID 24612)
--- Name: Session; Type: TABLE; Schema: public; Owner: -
+-- TOC entry 224 (class 1259 OID 16491)
+-- Name: Session; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public."Session" (
@@ -116,9 +133,12 @@ CREATE TABLE public."Session" (
     answered boolean[]
 );
 
+
+ALTER TABLE public."Session" OWNER TO postgres;
+
 --
--- TOC entry 225 (class 1259 OID 24576)
--- Name: Subject; Type: TABLE; Schema: public; Owner: -
+-- TOC entry 225 (class 1259 OID 16500)
+-- Name: Subject; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public."Subject" (
@@ -127,9 +147,12 @@ CREATE TABLE public."Subject" (
     "createdAt" bigint
 );
 
+
+ALTER TABLE public."Subject" OWNER TO postgres;
+
 --
--- TOC entry 220 (class 1259 OID 16389)
--- Name: Users; Type: TABLE; Schema: public; Owner: -
+-- TOC entry 226 (class 1259 OID 16505)
+-- Name: Users; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public."Users" (
@@ -139,8 +162,17 @@ CREATE TABLE public."Users" (
     password text CONSTRAINT "User_password_not_null" NOT NULL,
     email character varying(200) CONSTRAINT "User_email_not_null" NOT NULL,
     "createdAt" bigint,
-    "updatedAt" bigint
+    "updatedAt" bigint,
+    displayname character varying(100)
 );
+
+
+ALTER TABLE public."Users" OWNER TO postgres;
+
+--
+-- TOC entry 227 (class 1259 OID 16514)
+-- Name: User_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
 
 CREATE SEQUENCE public."User_id_seq"
     START WITH 1
@@ -149,11 +181,20 @@ CREATE SEQUENCE public."User_id_seq"
     NO MAXVALUE
     CACHE 1;
 
+
+ALTER SEQUENCE public."User_id_seq" OWNER TO postgres;
+
+--
+-- TOC entry 5084 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: User_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
 ALTER SEQUENCE public."User_id_seq" OWNED BY public."Users".id;
 
 --
--- TOC entry 222 (class 1259 OID 16416)
--- Name: Users_Roles; Type: TABLE; Schema: public; Owner: -
+-- TOC entry 228 (class 1259 OID 16515)
+-- Name: Users_Roles; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public."Users_Roles" (
@@ -163,8 +204,12 @@ CREATE TABLE public."Users_Roles" (
     "createdAt" bigint
 );
 
+
+ALTER TABLE public."Users_Roles" OWNER TO postgres;
+
 --
--- Constraints
+-- TOC entry 4888 (class 2604 OID 32836)
+-- Name: Users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public."Users" ALTER COLUMN id SET DEFAULT nextval('public."User_id_seq"'::regclass);
@@ -180,20 +225,100 @@ ALTER TABLE ONLY public."Users" ADD CONSTRAINT user_id PRIMARY KEY (id);
 ALTER TABLE ONLY public."Users_Roles" ADD CONSTRAINT user_role_id PRIMARY KEY (id);
 
 --
--- Foreign Keys
+-- TOC entry 4912 (class 2606 OID 24607)
+-- Name: Exam creator_id; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."Exam" ADD CONSTRAINT creator_id FOREIGN KEY (creator_id) REFERENCES public."Users"(id);
-ALTER TABLE ONLY public."Score" ADD CONSTRAINT exam_id FOREIGN KEY (exam_id) REFERENCES public."Exam"(id) NOT VALID;
-ALTER TABLE ONLY public."Session" ADD CONSTRAINT exam_id FOREIGN KEY (exam_id) REFERENCES public."Exam"(id);
-ALTER TABLE ONLY public."Users_Roles" ADD CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES public."Roles"(id) NOT VALID;
-ALTER TABLE ONLY public."Users_Roles" ADD CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES public."Users"(id);
-ALTER TABLE ONLY public."Answers" ADD CONSTRAINT question_id FOREIGN KEY (question_id) REFERENCES public."Questions"(id);
-ALTER TABLE ONLY public."Exam" ADD CONSTRAINT subject_id FOREIGN KEY (subject_id) REFERENCES public."Subject"(id);
-ALTER TABLE ONLY public."Questions" ADD CONSTRAINT subject_id FOREIGN KEY (subject_id) REFERENCES public."Subject"(id) NOT VALID;
-ALTER TABLE ONLY public."Score" ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES public."Users"(id) NOT VALID;
-ALTER TABLE ONLY public."Session" ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES public."Users"(id);
+ALTER TABLE ONLY public."Exam"
+    ADD CONSTRAINT creator_id FOREIGN KEY (creator_id) REFERENCES public."Users"(id);
+
+
+--
+-- TOC entry 4916 (class 2606 OID 16545)
+-- Name: Score exam_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Score"
+    ADD CONSTRAINT exam_id FOREIGN KEY (exam_id) REFERENCES public."Exam"(id) NOT VALID;
+
+
+--
+-- TOC entry 4918 (class 2606 OID 16550)
+-- Name: Session exam_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Session"
+    ADD CONSTRAINT exam_id FOREIGN KEY (exam_id) REFERENCES public."Exam"(id);
+
+
+--
+-- TOC entry 4920 (class 2606 OID 16555)
+-- Name: Users_Roles fk_role; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Users_Roles"
+    ADD CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES public."Roles"(id) NOT VALID;
+
+
+--
+-- TOC entry 4921 (class 2606 OID 16560)
+-- Name: Users_Roles fk_user; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Users_Roles"
+    ADD CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES public."Users"(id);
+
+
+--
+-- TOC entry 4912 (class 2606 OID 16565)
+-- Name: Answers question_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Answers"
+    ADD CONSTRAINT question_id FOREIGN KEY (question_id) REFERENCES public."Questions"(id);
+
+
+--
+-- TOC entry 4914 (class 2606 OID 16570)
+-- Name: Exam subject_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Exam"
+    ADD CONSTRAINT subject_id FOREIGN KEY (subject_id) REFERENCES public."Subject"(id);
+
+
+--
+-- TOC entry 4915 (class 2606 OID 16575)
+-- Name: Questions subject_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Questions"
+    ADD CONSTRAINT subject_id FOREIGN KEY (subject_id) REFERENCES public."Subject"(id) NOT VALID;
+
+
+--
+-- TOC entry 4917 (class 2606 OID 16580)
+-- Name: Score user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Score"
+    ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES public."Users"(id) NOT VALID;
+
+
+--
+-- TOC entry 4919 (class 2606 OID 16585)
+-- Name: Session user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Session"
+    ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES public."Users"(id);
+
+
+-- Completed on 2026-04-17 12:06:29
 
 --
 -- PostgreSQL database dump complete
 --
+
+\unrestrict waeauUvCtwgLtgPaDt9EM4dcDXeDA6gSbx2AhfcFNLOiTg2a57iUJ6vztxq1Nc1
+
